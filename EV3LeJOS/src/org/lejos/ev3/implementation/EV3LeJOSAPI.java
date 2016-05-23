@@ -43,27 +43,28 @@ public class EV3LeJOSAPI {
 	}
 
 	/*
-	 * To run the Motors
+	 * To run the Motor of the EV3 robot with a specific degree of rotation
+	 * The Motor should be plugged into one of the Port {A,B,C or D}
+	 * In general, Motor Speed = 360 degree/second
+	 * 
 	 */
-	public void runCarFactoryBeltOfEV3(String port, int motorSpeed, int rotation_degree) throws RemoteException, MalformedURLException, NotBoundException{
+	public void runEV3Motor(String port, int motorSpeed, int rotation_degree) throws RemoteException, MalformedURLException, NotBoundException{
 
-		System.out.println("Start Running EV3...");
-
-		getCreatedMotors(port); 			// Get Motors
+		System.out.println("Start Running EV3 Robot Motor...");
+		getCreatedMotors(port); 			
 		Sound.beepSequenceUp();
 		motor.setSpeed(motorSpeed);
 		motor.rotate(rotation_degree);		
 		motor.stop(true);
 		motor.close();
-
-		System.out.println("End Running EV3...");
+		System.out.println("End Running EV3 Robot Motor...");
 	}
 
 
 	public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException 
 	{
 		EV3LeJOSAPI moveev3 = new EV3LeJOSAPI();
-		moveev3.runCarFactoryBeltOfEV3("D", 300 ,720);
+		moveev3.runEV3Motor("D", 300 ,720);
 		//moveev3.runCarFactoryBeltEV3("D", 300 ,720);
 	}
 
