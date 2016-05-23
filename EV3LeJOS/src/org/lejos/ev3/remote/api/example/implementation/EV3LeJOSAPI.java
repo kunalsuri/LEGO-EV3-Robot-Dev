@@ -3,7 +3,7 @@
  * 
  */
 
-package org.lejos.ev3.implementation;
+package org.lejos.ev3.remote.api.example.implementation;
 
 import lejos.hardware.Sound;
 import java.net.MalformedURLException;
@@ -15,19 +15,15 @@ import lejos.remote.ev3.RemoteEV3;
 
 public class EV3LeJOSAPI {
 
-	public EV3LeJOSAPI()
-	{
-
-	} 
-
 	RMIRegulatedMotor motor ;
-
+	
 	/*
 	 * To create a remote connection to EV3 running LEJOS
 	 */
 	public RemoteEV3 getEV3Connection() throws RemoteException, MalformedURLException, NotBoundException
 	{
-		RemoteEV3 ev3 = new RemoteEV3("10.0.1.1");
+		String EV3_IP_ADD ="10.0.1.1";
+		RemoteEV3 ev3 = new RemoteEV3(EV3_IP_ADD);
 		return ev3;
 	}
 
@@ -57,15 +53,5 @@ public class EV3LeJOSAPI {
 		motor.rotate(rotation_degree);		
 		motor.stop(true);
 		motor.close();
-		System.out.println("End Running EV3 Robot Motor...");
 	}
-
-
-	public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException 
-	{
-		EV3LeJOSAPI moveev3 = new EV3LeJOSAPI();
-		moveev3.runEV3Motor("D", 300 ,720);
-		//moveev3.runCarFactoryBeltEV3("D", 300 ,720);
-	}
-
 }
