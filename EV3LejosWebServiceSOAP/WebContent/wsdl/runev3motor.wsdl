@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RunEV3MotorService" targetNamespace="http://example.api.remote.ev3.lejos.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.api.remote.ev3.lejos.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://example.api.remote.ev3.lejos.org/" version="1.0" xmlns:tns="http://example.api.remote.ev3.lejos.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="runEV3RobotMotor" type="tns:runEV3RobotMotor"/>
+
+  <xs:element name="runEV3RobotMotorResponse" type="tns:runEV3RobotMotorResponse"/>
+
+  <xs:complexType name="runEV3RobotMotor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EV3Port" type="xs:string"/>
+      <xs:element name="EV3MotorSpeed" type="xs:int"/>
+      <xs:element name="DegreeOfRotation" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="runEV3RobotMotorResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="returnString" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="runEV3RobotMotorResponse">
+    <wsdl:part name="parameters" element="tns:runEV3RobotMotorResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="runEV3RobotMotor">
+    <wsdl:part name="parameters" element="tns:runEV3RobotMotor">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RunEV3Motor">
+    <wsdl:operation name="runEV3RobotMotor">
+      <wsdl:input name="runEV3RobotMotor" message="tns:runEV3RobotMotor">
+    </wsdl:input>
+      <wsdl:output name="runEV3RobotMotorResponse" message="tns:runEV3RobotMotorResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RunEV3MotorServiceSoapBinding" type="tns:RunEV3Motor">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="runEV3RobotMotor">
+      <soap12:operation soapAction="urn:RunEV3RobotMotor" style="document"/>
+      <wsdl:input name="runEV3RobotMotor">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="runEV3RobotMotorResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RunEV3MotorService">
+    <wsdl:port name="RunEV3MotorPort" binding="tns:RunEV3MotorServiceSoapBinding">
+      <soap12:address location="http://localhost:8080/EV3LejosWebServiceSOAP/services"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
